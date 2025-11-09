@@ -1,18 +1,53 @@
 import React from 'react';
-// 1. Importa a "parede" que corrigimos (index.css)
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { customTheme } from './theme'; 
 import './index.css'; 
 
-// 2. O 'import ./App.css;' foi REMOVIDO. Esta é a correção mais importante.
+// CONTEXTOS (CÉREBROS)
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 
-// 3. Importa a sua "pintura" (LoginPage)
-//    Use o caminho exato que está a funcionar para si!
-import LoginPage from './pages/LoginPage'; // Ou './pages/LoginPage'
+// COMPONENTES (GUARDA)
+import ProtectedRoute from './components/ProtectedRoute'; 
+
+// PÁGINAS
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ProductCatalogPage from './pages/ProductCatalogPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import CartPage from './pages/CartPage'; 
+import LoginPage from './pages/LoginPage'; 
+import RegisterPage from './pages/RegisterPage';
+import CheckoutPage from './pages/CheckoutPage'; 
 
 function App() {
-  // 4. Retorna SÓ a sua pintura.
-  //    Sem <div className="App">, sem nada a volta.
   return (
-      <LoginPage />
+    <ThemeProvider theme={customTheme}>
+     <CssBaseline /> 
+      <BrowserRouter> 
+        <AuthProvider>
+          <CartProvider>
+            <Routes>
+              {/*  Rotas Públicas */}
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/cadastro" element={<RegisterPage />} />
+              <Route path="/sobre" element={<AboutPage />} />
+              <Route path="/produtos" element={<ProductCatalogPage />} />
+              <Route path="/produto/:id" element={<ProductDetailPage />} />
+              <Route path="/checkout-process" element={<CheckoutPage />} /> 
+
+              {/* Rotas Protegidas */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/carrinho" element={<CartPage />} />
+              </Route>
+              
+            </Routes>
+          </CartProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
