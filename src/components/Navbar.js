@@ -27,7 +27,7 @@ export default function Navbar() {
   const handleMobileMenuClose = () => setAnchorEl(null);
 
   const menuLinks = [
-    { title: 'Home', path: '/' },
+    { title: 'Início', path: '/' },
     { title: 'Produtos', path: '/produtos' },
     { title: 'Sobre', path: '/sobre' },
   ];
