@@ -149,7 +149,7 @@ export default function CartPage() {
                       {/* Imagem do produto com fallback caso não carregue */}
                       <Box 
                         component="img"
-                        src={item.imageUrl} 
+                        src={item.image} 
                         alt={item.name}
                         sx={{ 
                           width: 80, height: 80, 
@@ -277,9 +277,23 @@ export default function CartPage() {
 }
 
 /*
-
-    CÓDIGO REAL DO BACKEND (PARA QUANDO ESTIVER PRONTO)
-*/
+================================================================================
+================================================================================
+==
+==    CÓDIGO REAL DO BACKEND (PARA QUANDO ESTIVER PRONTO)
+==
+==    "EU DO FUTURO": A integração do backend nesta página significa
+==    substituir a minha função 'fetchCep' simulada por uma que
+==    chama o *meu* backend. O meu backend é que vai ter a
+==    lógica de preços (if estado === 'SP'...).
+==
+==    O meu frontend não deve mais chamar o 'viacep.com.br' diretamente.
+==    Ele deve chamar o meu backend (ex: /api/shipping/calculate),
+==    e o backend é que, se precisar, chama o ViaCEP.
+==
+================================================================================
+================================================================================
+*
 
 /*
 // --- 1. A NOVA FUNÇÃO 'fetchCep' (PARA COLAR DENTRO DO COMPONENTE) ---
@@ -303,7 +317,7 @@ export default function CartPage() {
         // A GRANDE MUDANÇA: Chamo o MEU backend, não o ViaCEP.
         // Eu envio o CEP e também o subtotal (ou o cartItems),
         // porque o preço do frete pode depender do valor/peso.
-        const response = await fetch('/api/shipping/calculate', { // REQUERIMENTO: POST /api/shipping/calculate
+        const response = await fetch('http://localhost:5001/api/shipping/calculate', { // REQUERIMENTO: POST /api/shipping/calculate
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -329,7 +343,7 @@ export default function CartPage() {
 
     } catch (e) {
         console.error("Erro na busca de frete:", e);
-        setError(e.message || 'Erro ao buscar o CEP. Tente novamente.');
+section       setError(e.message || 'Erro ao buscar o CEP. Tente novamente.');
     } finally {
         setIsLoading(false);
     }
@@ -352,50 +366,50 @@ app.use(express.json());
 
 // REQUERIMENTO: POST /api/shipping/calculate
 app.post('/api/shipping/calculate', async (req, res) => {
-    try {
-        const { cep, subtotal } = req.body;
+    try {
+        const { cep, subtotal } = req.body;
 
-        // 1. O Backend chama o ViaCEP (de forma segura)
-        const viaCepResponse = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await viaCepResponse.json();
+        // 1. O Backend chama o ViaCEP (de forma segura)
+        const viaCepResponse = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await viaCepResponse.json();
 
-        if (data.erro) {
-            return res.status(404).json({ message: 'CEP não encontrado.' });
-        }
+        if (data.erro) {
+            return res.status(404).json({ message: 'CEP não encontrado.' });
+        }
 
-        // 2. O Backend corre a LÓGICA DE PREÇO (que antes estava no frontend)
-        const estado = data.uf;
-        let valorFrete = 0;
-        let prazo = "3 a 5 dias úteis";
+        // 2. O Backend corre a LÓGICA DE PREÇO (que antes estava no frontend)
+        const estado = data.uf;
+        let valorFrete = 0;
+        let prazo = "3 a 5 dias úteis";
 
-        // A lógica de preço agora está SEGURA no backend
-        if (estado === 'SP') {
-            valorFrete = 15.00;
-            prazo = "2 a 3 dias úteis";
-        } else if (['MG', 'RJ', 'PR', 'SC'].includes(estado)) {
-            valorFrete = 25.00;
-            prazo = "4 a 6 dias úteis";
-        } else {
-            valorFrete = 35.00;
-            prazo = "5 a 10 dias úteis";
-        }
-        
-        // (Lógica Bónus: Se o subtotal for > 200, frete é grátis)
-        if (subtotal > 200) {
-            valorFrete = 0;
-            prazo = "Frete Grátis (2 a 5 dias)";
-        }
+        // A lógica de preço agora está SEGURA no backend
+       if (estado === 'SP') {
+            valorFrete = 15.00;
+            prazo = "2 a 3 dias úteis";
+        } else if (['MG', 'RJ', 'PR', 'SC'].includes(estado)) {
+            valorFrete = 25.00;
+            prazo = "4 a 6 dias úteis";
+        } else {
+            valorFrete = 35.00;
+            prazo = "5 a 10 dias úteis";
+        }
+        
+        // (Lógica Bónus: Se o subtotal for > 200, frete é grátis)
+       if (subtotal > 200) {
+            valorFrete = 0;
+            prazo = "Frete Grátis (2 a 5 dias)";
+        }
 
-        // 3. O Backend devolve o objeto 'frete' pronto para o frontend
-        res.json({
-            valor: valorFrete,
-            prazo: prazo,
-            endereco: `${data.logradouro}, ${data.bairro}, ${data.localidade}/${data.uf}`
-        });
+        // 3. O Backend devolve o objeto 'frete' pronto para o frontend
+       res.json({
+            valor: valorFrete,
+            prazo: prazo,
+            endereco: `${data.logradouro}, ${data.bairro}, ${data.localidade}/${data.uf}`
+        });
 
-    } catch (e) {
-        res.status(500).json({ message: 'Erro interno do servidor.' });
-    }
+    } catch (e) {
+        res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
 });
 
 // app.listen(5000, () => console.log('Servidor de frete a correr na porta 5000'));
