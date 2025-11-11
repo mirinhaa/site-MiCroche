@@ -1,74 +1,54 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# MiCroche - Frontend da Aplicação E-commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é o repositório do frontend da aplicação MiCroche, um e-commerce completo construído em React.js, React Router e Material-UI (MUI).
 
-## Available Scripts
+A aplicação foi desenvolvida usando uma arquitetura baseada em "Contextos" (Context API) e está totalmente preparada para se ligar a um backend RESTful para autenticação, gestão de produtos e processamento de pedidos.
 
-In the project directory, you can run:
+## Principais Funcionalidades
 
-### `npm start`
+* **Autenticação Completa:** Registo (`/cadastro`) e Login (`/login`) de utilizadores, com gestão de estado de autenticação e tokens (JWT).
+* **Gestão de Estado Global:** O `AuthContext` e o `CartContext` gerem o estado do utilizador e do carrinho em toda a aplicação.
+* **Rotas Protegidas:** O componente `ProtectedRoute` bloqueia o acesso a páginas (ex: `/carrinho`) se o utilizador não estiver autenticado.
+* **Catálogo Dinâmico:**
+    * A `HomePage` busca os produtos em destaque (`/api/products/featured`).
+    * A `ProductCatalogPage` busca produtos da API com **filtros de categoria** (`?category=...`) e **pesquisa** (`?search=...`).
+    * A `ProductDetailPage` busca os dados de um produto específico pelo seu ID (`/api/products/:id`).
+* **Carrinho de Compras Híbrido:**
+    * **Utilizadores Convidados:** O carrinho é guardado no `localStorage`.
+    * **Utilizadores Logados:** O carrinho é guardado e lido do banco de dados (`/api/cart`).
+    * **Fusão (Merge):** Quando um convidado faz login, o seu carrinho local é fundido (merged) com o carrinho da sua conta no backend (`/api/cart/merge`).
+* **Cálculo de Frete (via Backend):** A `CartPage` chama a API do backend (`/api/shipping/calculate`) para obter o valor do frete, movendo a lógica de preços para o servidor.
+* **Checkout:** A `CheckoutPage` reúne todos os dados (Utilizador, Carrinho, Morada, Pagamento) e envia-os para o backend para criar o pedido (`/api/orders/create`).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tecnologias Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* **React.js (v18+):** Biblioteca principal para a UI.
+* **React Router (v6):** Para a gestão de rotas do lado do cliente.
+* **Material-UI (MUI v5):** Biblioteca de componentes de design.
+* **React Context API:** Para gestão de estado global (Autenticação e Carrinho).
+* **Fetch API:** Para todas as chamadas HTTP à API do backend.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Como Executar (Ambiente de Desenvolvimento)
 
-### `npm run build`
+Esta aplicação é composta por duas partes: o **Frontend (este repositório)** e o **Backend (servidor Node.js)**. Ambos precisam de estar a correr em simultâneo.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Pré-requisitos
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Node.js (v16 ou superior)
+* `npm` (ou `yarn`)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Configurar e Correr o Backend
 
-### `npm run eject`
+O backend (servidor Node.js/Express) é necessário para fornecer os dados dos produtos, autenticação e carrinho.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# 1. Navegue para a pasta do backend
+cd ./backend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 2. Instale as dependências
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# site-microche
->>>>>>> d44a4c85425c0005732fe958d30ed388a60cb459
+# 3. Inicie o servidor em modo de desenvolvimento
+npm run dev
