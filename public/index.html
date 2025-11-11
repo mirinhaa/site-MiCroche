@@ -1,23 +1,43 @@
 <!DOCTYPE html>
+<!-- Este é o principal arquivo HTML do meu projeto. -->
 <html lang="pt-br">
+  
   <head>
+
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
+    <!-- Este é o ícone que aparece na aba do navegador (o "favicon"). O %PUBLIC_URL% é uma variável do React que aponta para minha pasta 'public'. -->
+    <link rel="icon" href="%PUBLIC_URL%/minhalogo/logobola.png" />
+
+    <!-- Esta linha é super importante para o meu site funcionar bem em celulares. Ela diz ao navegador para ajustar a largura da página ao tamanho da tela do dispositivo e começar com o zoom normal (initial-scale=1). -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Aqui eu defino a cor da barra de endereço do navegador em dispositivos móveis, para combinar com o design do meu site. -->
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Site de crochê MiCroche"
-    />
+
+    <!-- Esta é a descrição do meu site que o Google e outros motores de busca vão mostrar nos resultados. -->
+    <meta name="description" content="MiCroche - Sua loja online de crochê artesanal" />
+
+    <!-- Este é o ícone que vai aparecer se alguém adicionar meu site à tela inicial de um iPhone ou iPad. -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!-- Eu ligo este arquivo ao "manifest.json". Isso é parte de transformar meu site em um Progressive Web App (PWA), o que permite que ele seja "instalado" em dispositivos. -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    
-    <title>MiCroche</title>
+
+    <!-- Este é o título que aparece na aba do navegador. -->
+    <title>MiCroche - Sua loja online de crochê </title>
   </head>
   <body>
-    <noscript>Você precisa habilitar o JavaScript para rodar este app.</noscript>
-    
+    <!-- O <body> é onde todo o conteúdo visível da minha página vai ficar. -->
+
+    <!-- Esta mensagem só vai aparecer para usuários que desabilitaram o JavaScript no navegador. Como meu site é feito em React, ele precisa de JavaScript para funcionar. -->
+    <noscript
+      >Você precisa habilitar o JavaScript para rodar este app.</noscript
+    >
+
+    <!-- Esta é a 'div' mais importante! Meu aplicativo React inteiro será injetado aqui dentro. É o ponto de entrada, o "root" (raiz) da minha aplicação. -->
     <div id="root"></div>
-    
+
+    <!-- E é isso! O resto da mágica acontece com o React. -->
   </body>
 </html>
