@@ -6,6 +6,14 @@ import ProductCard from '../components/ProductCard';
 import productsData from '../data/products'; 
 
 export default function ProductCatalogPage() {
+
+const hoverTextStyle = {
+  cursor: 'pointer', // Cursor muda para indicar que o texto é interativo
+  transition: 'color 0.3s ease', // Transição suave para mudança de cor
+  '&:hover': {
+    color: 'primary.main', // Cor primária definida no tema Material UI ao passar o mouse
+  },
+};
  
  const [searchTerm, setSearchTerm] = useState('');
  const [filter, setFilter] = useState('todos');
@@ -36,7 +44,7 @@ export default function ProductCatalogPage() {
  	  	  	variant="h3" 
  	  	  	component="h1" 
  	  	  	gutterBottom 
- 	  	  	sx={{ fontWeight: 700, textAlign: 'center', mb: 4 }}
+ 	  	  	sx={{ fontWeight: 700, textAlign: 'center', mb: 4,...hoverTextStyle }}
  	  	  >
  	  	  	Nosso Catálogo
  	  	  </Typography>
@@ -241,13 +249,13 @@ export default function ProductCatalogPage() {
 
       <Container maxWidth="lg" sx={{ py: 8 }}> 
           <Typography 
-            variant="h3" 
-            component="h1" 
-            gutterBottom 
-            sx={{ fontWeight: 700, textAlign: 'center', mb: 4 }}
-          >
-            Nosso Catálogo
-          </Typography>
+ 	  	  	variant="h3" 
+ 	  	  	component="h1" 
+ 	  	  	gutterBottom 
+ 	  	  	sx={{ fontWeight: 700, textAlign: 'center', mb: 4,...hoverTextStyle }}
+ 	  	  >
+ 	  	  	Nosso Catálogo
+ 	  	  </Typography>
 
         
           <Box sx={{ 

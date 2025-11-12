@@ -7,6 +7,16 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import productsData from '../data/products';
 
+// Estilo reutilizável para aplicar o efeito hover em todos os textos (Typography)
+const hoverTextStyle = {
+  cursor: 'pointer', // Cursor muda para indicar que o texto é interativo
+  transition: 'color 0.3s ease', // Transição suave para mudança de cor
+  '&:hover': {
+    color: 'primary.main', // Cor primária definida no tema Material UI ao passar o mouse
+  },
+};
+
+
 const featuredProducts = productsData.slice(0, 3);
 
 export default function HomePage() {
@@ -45,10 +55,10 @@ export default function HomePage() {
  }}
  >
  	  	<Container maxWidth="md">
-	  	  <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
+	  	  <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 700,...hoverTextStyle }}>
 	  	  	Aconchego em cada ponto
  	  	  </Typography>
-	  	  <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 250 }}>
+	  	  <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 250,...hoverTextStyle }}>
  	  	  	Peças artesanais de crochê feitas com carinho,
 	  	  	exclusivamente para você.
 	  	  </Typography>
@@ -62,7 +72,7 @@ export default function HomePage() {
  	  	  variant="h4" 
  	  	  component="h2" 
  	  	  gutterBottom 
- 	  	  sx={{ textAlign: 'center', fontWeight: 700, mb: 6 }}
+ 	  	  sx={{ textAlign: 'center', fontWeight: 700, mb: 6,...hoverTextStyle }}
  	  	>
  	  	  Nossos Destaques
  	  	</Typography>
@@ -90,14 +100,14 @@ export default function HomePage() {
  	  	  	variant="h4" 
  	  	  	component="h2" 
  	  	  	gutterBottom 
- 	  	  	sx={{ fontWeight: 700, mb: 4 }}
+ 	  	  	sx={{ fontWeight: 700, mb: 4,...hoverTextStyle }}
  	  	  >
  	  	  	Feito à mão, com o coração
  	  	  </Typography>
  	  	  <Typography 
  	  	  	variant="body1" 
  	  	  	color="text.secondary" 
- 	  	  	sx={{ fontSize: '1.1rem', mb: 4 }}
+ 	  	  	sx={{ fontSize: '1.1rem', mb: 4,...hoverTextStyle }}
  	  	  >
  	  	  	A MiCroche nasceu da paixão de transformar fios em arte...
  	  	  </Typography>
@@ -162,6 +172,14 @@ export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const hoverTextStyle = {
+  cursor: 'pointer', // Cursor muda para indicar que o texto é interativo
+  transition: 'color 0.3s ease', // Transição suave para mudança de cor
+  '&:hover': {
+    color: 'primary.main', // Cor primária definida no tema Material UI ao passar o mouse
+  },
+};
+  
 
   // "EU DO FUTURO": Este 'useEffect' corre UMA VEZ
   // quando a página carrega (por causa do '[]' no fim)
@@ -217,10 +235,10 @@ export default function HomePage() {
  }}
  >
         <Container maxWidth="md">
-          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 600,...hoverTextStyle }}>
             Aconchego em cada ponto
           </Typography>
-          <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 250 }}>
+          <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 250,...hoverTextStyle }}>
             Peças artesanais de crochê feitas com carinho,
             exclusivamente para você.
           </Typography>
@@ -268,7 +286,7 @@ export default function HomePage() {
       <Box 
         sx={{ 
           backgroundColor: 'white', 
-    _     py: 8, 
+         py: 8, 
           textAlign: 'center',
           borderTop: 1,
           borderColor: 'grey.300'
@@ -279,17 +297,17 @@ export default function HomePage() {
             variant="h4" 
             component="h2" 
             gutterBottom 
-            sx={{ fontWeight: 700, mb: 4 }}
+            sx={{ fontWeight: 700, mb: 4,...hoverTextStyle }}
           >
             Feito à mão, com o coração
           </Typography>
           <Typography 
             variant="body1" 
             color="text.secondary" 
-            sx={{ fontSize: '1.1rem', mb: 4 }}
+            sx={{ fontSize: '1.1rem', mb: 4,...hoverTextStyle }}
           >
             A MiCroche nasceu da paixão de transformar fios em arte...
-BODY       </Typography>
+       </Typography>
           <Box>
             <IconButton 
               aria-label="Instagram" 
@@ -298,7 +316,7 @@ BODY       </Typography>
               target="_blank"
             >
               <InstagramIcon sx={{ fontSize: 55 }} />
-B         </IconButton>
+         </IconButton>
             <IconButton 
               aria-label="WhatsApp" 
               color="primary" 
@@ -306,7 +324,7 @@ B         </IconButton>
               target="_blank"
             >
               <WhatsAppIcon sx={{ fontSize: 55 }} />
-image       </IconButton>
+      </IconButton>
           </Box>
         </Container>
       </Box>
